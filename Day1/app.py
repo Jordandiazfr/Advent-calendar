@@ -15,6 +15,19 @@ class Elf:
             if cal > max_num:
                 max_num = cal
         return max_num
+    def sort(self):
+        if self.total_calories_list != []:
+            n = len(self.total_calories_list)
+            for i in range (n):
+                already_sorted = True
+                for j in range (n - i - 1):
+                    if self.total_calories_list[j] > self.total_calories_list[j+1]:
+                        self.total_calories_list[j], self.total_calories_list[j + 1] = self.total_calories_list[j + 1], self.total_calories_list[j]
+                        already_sorted= False
+                if already_sorted:
+                    break
+        else:
+            raise ValueError("The total calorie list is empty")
 
 elf = Elf()
 with open(file="input.txt",mode= "r", newline="\n") as file:
@@ -30,5 +43,6 @@ for data in data_list:
         elf.calories = []
 
 elf.most_cal = elf.biggest()
-print(elf.most_cal)
-
+elf.sort()
+total_last_3 = elf.total_calories_list[-2] +elf.total_calories_list[-3] + elf.total_calories_list[-1] 
+print(total_last_3)
