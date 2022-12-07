@@ -11,9 +11,10 @@ SCISSOR_3 = 'C'
 class Play:
     def __init__(self) -> None:
         self.total_score= 0
+        self.last_played = ""
         self.shapes= {"X":1, "Y":2, "Z":3}
         self.outcomes = {"win":6 , "lost": 0, "draw":3}
-
+       
     def score(self, p1, outcome) -> int:
         # Outcome: 0 lost, 3 draw, 6 won
         # Shape: 1 rock, 2 paper, 3 scissor
@@ -38,3 +39,18 @@ class Play:
             if player == PAPER:
                 return "lost"
         return "draw"
+
+    def strategy(self, strat: str, opponent: str): 
+        method = {"X": "lost", "Y": "draw", "Z": "win"}
+        player = {"rock": "X", "paper": "Y", "scissor": "Z"}
+        defined_outcome = method[strat]
+        for i in player.values():
+            print(i)
+            outcome = self.game(i, opponent)
+            if  outcome == defined_outcome:
+                self.last_played = i
+                break
+        
+        self.score(self.last_played, outcome)
+                
+        
